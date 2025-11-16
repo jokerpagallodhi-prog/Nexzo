@@ -1,233 +1,203 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Affiliate Shop</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-        header {
-            text-align: center;
-            background-color: #232f3e; /* Amazon-like color */
-            color: white;
-            padding: 20px;
-        }
-        .product {
-            background: white;
-            margin: 20px auto;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            max-width: 600px;
-        }
-        .product img {
-            max-width: 100%;
-            height: auto;
-        }
-        .product h2 {
-            color: #007185; /* Amazon link color */
-        }
-        .buy-button {
-            display: inline-block;
-            background-color: #ff9900; /* Amazon orange */
-            color: black;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 4px;
-            margin-top: 10px;
-        }
-        .buy-button:hover {
-            background-color: #e68a00;
-        }
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 12px;
-            color: #666;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexzo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
+    header {
+      background-color: #232f3e;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+    }
+    .search-bar {
+      margin: 20px auto;
+      max-width: 400px;
+      display: flex;
+    }
+    .search-bar input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px 0 0 4px;
+      outline: none;
+    }
+    .search-bar button {
+      padding: 10px;
+      border: none;
+      background-color: #ff9900;
+      color: black;
+      font-weight: bold;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+    }
+    .search-bar button:hover {
+      background-color: #e68a00;
+    }
+
+    .product-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+    .product {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 250px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .product:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+    .product img {
+      width: 100%;
+      border-radius: 8px;
+    }
+    .product h2 {
+      color: #007185;
+      font-size: 18px;
+      margin: 10px 0 5px;
+    }
+    .product p {
+      font-size: 14px;
+      color: #333;
+    }
+    .buy-button {
+      display: inline-block;
+      background-color: #ff9900;
+      color: black;
+      padding: 10px 15px;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    .buy-button:hover {
+      background-color: #e68a00;
+    }
+
+    footer {
+      background-color: #232f3e;
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+    }
+    footer a {
+      color: #ff9900;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to Nexzo </h1>
-        <p>Discover great products from Amazon!</p>
-    </header>
 
-    <div class="product">
-        <img src="https://images-na.ssl-images-amazon.in/images/I/71cVOgvystL._AC_SL1500_.jpg" alt="Example Product 1">
-        <h2>Wireless Headphones</h2>
-        <p>High-quality wireless headphones for music lovers. Click to buy on Amazon!</p>
-        <a href="https://www.amazon.in/dp/B08N5WRWNW?tag=YOUR_AFFILIATE_ID" class="buy-button" onclick="openAmazonApp('B08N5WRWNW')">Buy Now</a>
-    </div>
+<header>
+  <h1>Welcome to Nexzo</h1>
+  <p>Your one-stop shop for the best Amazon products</p>
+</header>
 
-    <div class="product">
-        <img src="https://images-na.ssl-images-amazon.com/images/I/81O%2BGNdkzKL._AC_SL1500_.jpg" alt="Example Product 2">
-        <h2>Smartphone Stand</h2>
-        <p>Adjustable stand for your phone or tablet. Perfect for video calls.</p>
-        <a href="https://www.amazon.in/dp/B07ZPKN6YR?tag=YOUR_AFFILIATE_ID" class="buy-button" onclick="openAmazonApp('B07ZPKN6YR')">Buy Now</a>
-    </div>
+<div class="search-bar">
+  <input type="text" id="searchInput" placeholder="Search for products...">
+  <button onclick="searchProducts()">Search</button>
+</div>
 
-    <!-- Add more products here -->
+<div class="product-container" id="productContainer">
+  <!-- Product Cards will go here -->
+</div>
 
-    <footer>
-        <p>As an Amazon Associate, I earn from qualifying purchases. Prices and availability subject to change.</p>
-    </footer>
-
-    <script>
-        function openAmazonApp(productId) {
-            // Try to open Amazon app on mobile; fallback to web
-            const appUrl = `amazon://products/${productId}`;
-            const webUrl = `https://www.amazon.in/dp/${productId}?tag=nexzo0c-21`;
-            
-            // Check if on mobile and attempt app open
-            if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                window.location.href = appUrl;
-                // Fallback after a short delay if app doesn't open
-                setTimeout(() => {
-                    window.location.href = webUrl;
-                }, 1000);
-            } else {
-                // Desktop: go straight to web
-                window.location.href = webUrl;
-            }
-        }
-    </script>
-<footer style="text-align:center; padding:20px; background:#f1f1f1; margin-top:40px;">
-  <a href="about.html">Welcome to [Nexzo]!
-We created this website to help people find the best products, honest reviews, and useful recommendations — all in one place.
-
-Our goal is simple:
-
-To make online shopping easier
-
-To provide clear and reliable information
-
-To help you choose the right products without confusion
-
-We share product guides, tips, comparisons, and recommendations based on real research.
-We hope our content helps you save time and money.
-
-Thank you for visiting our website!
-If you have questions or suggestions, feel free to contact us anytime.</a> |
-  <a href="contact.html">Have a question? Need help? Want to give feedback?
-
-You can contact us anytime using the details below:
-
-📧 Email: [jokerpagallodhi@gmail.com
-]
-📱 Phone (optional): [Your phone number]
-🌐 Website: [YourWebsite.com]
-
-We usually reply within 24–48 hours.</a> |
-  <a href="privacy.html">Privacy Policy
-
-At [Nexzo], we take your privacy seriously.
-
-✔ Information We Collect
-
-We may collect:
-
-Your name
-
-Your email address
-
-Cookies and usage data
-
-Analytics data (like pages visited)
-
-✔ How We Use Your Information
-
-We use your information to:
-
-Improve our website
-
-Respond to your messages
-
-Show relevant content
-
-Analyze website performance
-
-✔ Cookies
-
-We use cookies to:
-
-Improve user experience
-
-Track website traffic
-
-Remember your preferences
-
-You can disable cookies from your browser settings.
-
-✔ Third-Party Links
-
-Our website contains links to Amazon and other websites.
-We are not responsible for their privacy practices.
-
-✔ Security
-
-We protect your information and never sell, rent, or share it with anyone.
-
-✔ Contact Us
-
-If you have any questions about this privacy policy, email us at:
-📧 [jokerpagallodhi@gmail.com
-]</a> |
-  <a href="disclaimer.html">[Nexzo] is a participant in the Amazon Associates Program, an affiliate advertising program designed to provide a means for websites to earn advertising fees by advertising and linking to Amazon.in.
-
-This means when you click on our Amazon links and buy a product, we may earn a small commission — at no extra cost to you.
-
-We only recommend products that we truly believe are useful and valuable.</a> |
-  <a href="terms.html">By using this website ([Nexzo]), you agree to the following terms:
-
-✔ Use of Content
-
-All content on this website is for information purposes only.
-You may not copy, repost, or sell any content without permission.
-
-✔ Affiliate Links
-
-Our website contains affiliate links.
-If you purchase through these links, we may earn a commission.
-
-✔ No Liability
-
-We are not responsible for:
-
-Incorrect product information
-
-Delays in delivery
-
-Issues with third-party websites like Amazon
-
-All purchases are handled securely by Amazon or respective platforms.
-
-✔ User Responsibilities
-
-You must:
-
-Use the website only for legal purposes
-
-Not engage in spam or harmful activities
-
-✔ Changes to Terms
-
-We may update these Terms & Conditions anytime.
-Please check this page regularly.
-
-✔ Contact
-
-For questions, email: [jokerpagallodhi@gmail.com
-]</a>
-  <br><br>
-  <p>© 2025 YourSiteName. All rights reserved.</p>
+<footer>
+  <p>&copy; 2025 Nexzo. All rights reserved.</p>
+  <p>
+    <a href="privacy.html">Privacy Policy</a> | 
+    <a href="terms.html">Terms & Conditions</a> | 
+    <a href="disclaimer.html">Disclaimer</a>
+  </p>
 </footer>
+
+<script>
+  // Sample product data
+  const products = [
+    {
+      name: "Wireless Headphones",
+      description: "Experience high-fidelity sound with these lightweight, comfortable wireless headphones. Perfect for music, calls, or gaming.",
+      image: "https://via.placeholder.com/250x250.png?text=Headphones",
+      link: "https://www.amazon.in/dp/B08N5WRWNW?tag= nexzo0c-21"
+    },
+    {
+      name: "Smartphone Stand",
+      description: "Adjustable and portable stand for phones or tablets. Great for video calls, watching movies, or reading recipes in the kitchen.",
+      image: "https://via.placeholder.com/250x250.png?text=Phone+Stand",
+      link: "https://www.amazon.in/dp/B07ZPKN6YR?tag= nexzo0c-21"
+    },
+    {
+      name: "Portable Charger",
+      description: "Never run out of battery with this compact power bank. Supports fast charging and multiple devices simultaneously.",
+      image: "https://via.placeholder.com/250x250.png?text=Power+Bank",
+      link: "https://www.amazon.in/dp/B08C1W5N87?tag= nexzo0c-21"
+    },
+    {
+      name: "Fitness Tracker",
+      description: "Track your steps, heart rate, and sleep patterns with this sleek fitness tracker. Waterproof and long battery life.",
+      image: "https://via.placeholder.com/250x250.png?text=Fitness+Tracker",
+      link: "https://www.amazon.in/dp/B07FZ8S74R?tag= nexzo0c-21"
+    },
+    {
+      name: "Bluetooth Speaker",
+      description: "Portable and powerful Bluetooth speaker with crisp sound and deep bass. Perfect for parties, outdoor activities, or travel.",
+      image: "https://via.placeholder.com/250x250.png?text=Bluetooth+Speaker",
+      link: "https://www.amazon.in/dp/B07QK2SPP7?tag= nexzo0c-21"
+    },
+    {
+      name: "Laptop Sleeve",
+      description: "Protect your laptop in style with this padded, water-resistant sleeve. Fits most 13-15 inch laptops.",
+      image: "https://via.placeholder.com/250x250.png?text=Laptop+Sleeve",
+      link: "https://www.amazon.in/dp/B08529TZMC?tag= nexzo0c-21"
+    }
+  ];
+
+  const productContainer = document.getElementById("productContainer");
+
+  function displayProducts(items) {
+    productContainer.innerHTML = "";
+    items.forEach(product => {
+      const productCard = document.createElement("div");
+      productCard.className = "product";
+      productCard.innerHTML = `
+        <img src="${product.image}" alt="${product.name}">
+        <h2>${product.name}</h2>
+        <p>${product.description}</p>
+        <a href="${product.link}" target="_blank" class="buy-button">Buy Now</a>
+      `;
+      productContainer.appendChild(productCard);
+    });
+  }
+
+  function searchProducts() {
+    const query = document.getElementById("searchInput").value.toLowerCase();
+    const filtered = products.filter(product => product.name.toLowerCase().includes(query));
+    displayProducts(filtered);
+  }
+
+  // Initial display
+  displayProducts(products);
+</script>
 
 </body>
 </html>
