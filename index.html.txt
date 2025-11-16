@@ -19,6 +19,10 @@
     header h1 {
       margin: 0;
     }
+<header>
+    <img src="ChatGPT Image Nov 16, 2025, 05_49_27 PM (1)" alt="Nexzo Logo" width="150">
+    <h1>Nexzo</h1>
+</header>
     .search-bar {
       margin: 20px auto;
       max-width: 400px;
